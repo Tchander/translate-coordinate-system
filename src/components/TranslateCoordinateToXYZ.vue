@@ -1,72 +1,76 @@
 <template>
   <div>
-    <h1>Translate coordinate system to XYZ</h1>
     <div class="container">
-      <h3>Object</h3>
-      <div class="input-item">
-        <p>Enter object name:</p>
-        <input type="text" v-model="starName">
-      </div>
-      <div class="input-item">
-        <p>Enter the distance to the object in light years:</p>
-        <input type="text" v-model="distanceInLightYears">
-      </div>
-      <h3>Right Ascension</h3>
-      <div class="input-item">
-        <p>Enter the number of hours:</p>
-        <input type="text" v-model="hoursRightAscension">
-      </div>
-      <div class="input-item">
-        <p>Enter the number of minutes:</p>
-        <input type="text" v-model="minutesRightAscension">
-      </div>
-      <div class="input-item">
-        <p>Enter the number of seconds:</p>
-        <input type="text" v-model="secondsRightAscension">
-      </div>
-      <h3>Declination</h3>
-      <div class="input-item">
-        <p>Enter the number of degrees:</p>
-        <input type="text" v-model="degreesDeclination">
-      </div>
-      <div class="input-item">
-        <p>Enter the number of minutes:</p>
-        <input type="text" v-model="minutesDeclination">
-      </div>
-      <div class="input-item">
-        <p>Enter the number of seconds:</p>
-        <input type="text" v-model="secondsDeclination">
-      </div>
+      <h1 class="header-title">Translate coordinate system to XYZ</h1>
+      <form class="input-form">
+        <h3 class="form-title">Object</h3>
+        <div class="input-item">
+          <p class="input-subtitles">Enter object name:</p>
+          <input class="input-data" type="text" v-model="starName">
+        </div>
+        <div class="input-item">
+          <p class="input-subtitles">Enter the distance to the object in light years:</p>
+          <input class="input-data" type="text" v-model="distanceInLightYears">
+        </div>
+        <h3 class="form-title">Right Ascension</h3>
+        <div class="input-item">
+          <p class="input-subtitles">Enter the number of hours:</p>
+          <input class="input-data" type="text" v-model="hoursRightAscension">
+        </div>
+        <div class="input-item">
+          <p class="input-subtitles">Enter the number of minutes:</p>
+          <input class="input-data" type="text" v-model="minutesRightAscension">
+        </div>
+        <div class="input-item">
+          <p class="input-subtitles">Enter the number of seconds:</p>
+          <input class="input-data" type="text" v-model="secondsRightAscension">
+        </div>
+        <h3 class="form-title">Declination</h3>
+        <div class="input-item">
+          <p class="input-subtitles">Enter the number of degrees:</p>
+          <input class="input-data" type="text" v-model="degreesDeclination">
+        </div>
+        <div class="input-item">
+          <p class="input-subtitles">Enter the number of minutes:</p>
+          <input class="input-data" type="text" v-model="minutesDeclination">
+        </div>
+        <div class="input-item">
+          <p class="input-subtitles">Enter the number of seconds:</p>
+          <input class="input-data" type="text" v-model="secondsDeclination">
+        </div>
 
-      <button v-on:click="translateCoordinate">Translate</button>
+        <button class="btn" @click.prevent="translateCoordinate">Translate</button>
 
+        <h2 class="star-name-title">{{ starName}}</h2>
+        <div class="new-coordinates">
+          <p class="output-subtitles">Coordinate in kilometers</p>
+          <ul>
+            <li>X: {{ x }}</li>
+            <li>Y: {{ y }}</li>
+            <li>Z: {{ z }}</li>
+          </ul>
+        </div>
+        <div class="new-coordinates">
+          <p class="output-subtitles">Coordinate in astronomical units</p>
+          <ul>
+            <li>X: {{ auX }}</li>
+            <li>Y: {{ auY }}</li>
+            <li>Z: {{ auZ }}</li>
+          </ul>
+        </div>
+        <div class="new-coordinates">
+          <p class="output-subtitles">Coordinate in light years</p>
+          <ul>
+            <li>X: {{ lyX }}</li>
+            <li>Y: {{ lyY }}</li>
+            <li>Z: {{ lyZ }}</li>
+          </ul>
+        </div>
 
-      <h2>{{ starName}}</h2>
-      <div class="new-coordinates">
-        <p>Coordinate in kilometers</p>
-        <ul>
-          <li>X: {{ x }}</li>
-          <li>Y: {{ y }}</li>
-          <li>Z: {{ z }}</li>
-        </ul>
-      </div>
-      <div class="new-coordinates">
-        <p>Coordinate in astronomical units</p>
-        <ul>
-          <li>X: {{ auX }}</li>
-          <li>Y: {{ auY }}</li>
-          <li>Z: {{ auZ }}</li>
-        </ul>
-      </div>
-      <div class="new-coordinates">
-        <p>Coordinate in light years</p>
-        <ul>
-          <li>X: {{ lyX }}</li>
-          <li>Y: {{ lyY }}</li>
-          <li>Z: {{ lyZ }}</li>
-        </ul>
-      </div>
-    </div>
+        <button class="btn" @click.prevent="clearForm">Clear</button>
+
+      </form>
+    </div> <!-- END OF CONTAINER -->
   </div>
 </template>
 
@@ -122,13 +126,114 @@
         this.lyX = this.x / LY
         this.lyY = this.y / LY
         this.lyZ = this.z / LY
-      }
+      },
+     clearForm() {
+       this.starName = ''
+       this.distanceInLightYears = ''
+       this.hoursRightAscension = ''
+       this.minutesRightAscension = ''
+       this.secondsRightAscension = ''
+       this.degreesDeclination = ''
+       this.minutesDeclination = ''
+       this.secondsDeclination = ''
+       this.km = 0
+       this.rightAscension = 0
+       this.declination = 0
+       this.x = ''
+       this.y = ''
+       this.z = ''
+       this.auX = ''
+       this.auY = ''
+       this.auZ = ''
+       this.lyX = ''
+       this.lyY = ''
+       this.lyZ = ''
+     }
    }
  }
 </script>
 
 <style>
+ .container {
+   width: 100%;
+   max-width: 600px;
+   margin: 20px auto;
+   color: #fff;
+   font-family: 'Rubik', sans-serif;
+ }
+
+ .header-title {
+   margin: 30px auto;
+   font-size: 32px;
+ }
+
+ .input-form {
+   background: rgba(37, 37, 128, 0.4);
+   margin: auto;
+   border-radius: 15px;
+   padding: 10px
+ }
+
+ .form-title {
+   margin: 10px auto;
+   padding-bottom: 10px;
+   border-bottom: 1px outset #fff;
+   font-size: 24px;
+ }
+
+ .input-item {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin: 0 15px 45px 15px;
+ }
+
+ .input-subtitles {
+   font-size: 16px;
+ }
+
+ .input-data {
+   color: #000;
+   font-size: 16px;
+ }
+
+ .btn {
+   width: 100%;
+   max-width: 100px;
+   padding: 5px;
+   background-color: #180e26;
+   color: #fff;
+   cursor: pointer;
+   border: 1px solid #fff;
+   border-radius: 5px;
+   font-size: 16px;
+ }
+
+ .btn:hover {
+   background-color: #324d82;
+ }
+
+ .star-name-title {
+   margin: 50px auto 20px 0;
+   border-top: 1px solid #fff;
+   padding-top: 20px;
+   font-size: 30px;
+   color: #c54848;
+ }
+
+ .new-coordinates {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   margin: 0 15px 15px 15px;
+   font-size: 20px;
+ }
+
  ul {
    list-style: none;
+ }
+
+ li {
+   margin-bottom: 10px;
  }
 </style>
