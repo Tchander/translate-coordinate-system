@@ -39,35 +39,37 @@
           <input class="input-data" type="text" v-model="secondsDeclination">
         </div>
 
-        <button class="btn" @click.prevent="translateCoordinate">Translate</button>
+        <button class="btn btn-translate" @click="translateCoordinate">
+          <a href="#translate-results">Translate</a></button>
 
-        <h2 class="star-name-title">{{ starName}}</h2>
-        <div class="new-coordinates">
-          <p class="output-subtitles">Coordinate in kilometers</p>
-          <ul>
-            <li>X: {{ x }}</li>
-            <li>Y: {{ y }}</li>
-            <li>Z: {{ z }}</li>
-          </ul>
+        <div id="translate-results" v-if="isTranslate">
+          <h2 class="star-name-title">{{ starName}}</h2>
+          <div class="new-coordinates">
+            <p class="output-subtitles">Coordinate in kilometers:</p>
+            <ul>
+              <li>X: {{ x }}</li>
+              <li>Y: {{ y }}</li>
+              <li>Z: {{ z }}</li>
+            </ul>
+          </div>
+          <div class="new-coordinates">
+            <p class="output-subtitles">Coordinate in astronomical units:</p>
+            <ul>
+              <li>X: {{ auX }}</li>
+              <li>Y: {{ auY }}</li>
+              <li>Z: {{ auZ }}</li>
+            </ul>
+          </div>
+          <div class="new-coordinates">
+            <p class="output-subtitles">Coordinate in light years:</p>
+            <ul>
+              <li>X: {{ lyX }}</li>
+              <li>Y: {{ lyY }}</li>
+              <li>Z: {{ lyZ }}</li>
+            </ul>
+          </div>
+          <button class="btn btn-clear" @click.prevent="clearForm">Clear</button>
         </div>
-        <div class="new-coordinates">
-          <p class="output-subtitles">Coordinate in astronomical units</p>
-          <ul>
-            <li>X: {{ auX }}</li>
-            <li>Y: {{ auY }}</li>
-            <li>Z: {{ auZ }}</li>
-          </ul>
-        </div>
-        <div class="new-coordinates">
-          <p class="output-subtitles">Coordinate in light years</p>
-          <ul>
-            <li>X: {{ lyX }}</li>
-            <li>Y: {{ lyY }}</li>
-            <li>Z: {{ lyZ }}</li>
-          </ul>
-        </div>
-
-        <button class="btn" @click.prevent="clearForm">Clear</button>
 
       </form>
     </div> <!-- END OF CONTAINER -->
@@ -99,7 +101,8 @@
       auZ: '',
       lyX: '',
       lyY: '',
-      lyZ: ''
+      lyZ: '',
+      isTranslate: false
     }
   },
    methods: {
@@ -126,6 +129,8 @@
         this.lyX = this.x / LY
         this.lyY = this.y / LY
         this.lyZ = this.z / LY
+
+        this.isTranslate = true
       },
      clearForm() {
        this.starName = ''
@@ -148,6 +153,7 @@
        this.lyX = ''
        this.lyY = ''
        this.lyZ = ''
+       this.isTranslate = false
      }
    }
  }
@@ -200,8 +206,9 @@
  .btn {
    width: 100%;
    max-width: 100px;
+   margin: 0 20px;
    padding: 5px;
-   background-color: #180e26;
+
    color: #fff;
    cursor: pointer;
    border: 1px solid #fff;
@@ -209,8 +216,25 @@
    font-size: 16px;
  }
 
- .btn:hover {
+ .btn-translate {
+   background-color: #180e26;
+ }
+
+ .btn-translate:hover {
    background-color: #324d82;
+ }
+
+ .btn-clear {
+   background-color: #213367;
+ }
+
+ .btn-clear:hover {
+   background-color: #170b1f;
+ }
+
+ a {
+   text-decoration: none;
+   color: #fff;
  }
 
  .star-name-title {
@@ -229,8 +253,13 @@
    font-size: 20px;
  }
 
+ .output-subtitles {
+   font-size: 22px;
+ }
+
  ul {
    list-style: none;
+   margin: 0;
  }
 
  li {
