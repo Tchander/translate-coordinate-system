@@ -71,8 +71,8 @@
 </template>
 
 <script>
- const LY = 9460800000000
- const AU = 149600000
+   const LY = 9460800000000
+   const AU = 149600000
  export default {
   data(){
     return {
@@ -100,21 +100,18 @@
   },
    methods: {
       translateCoordinate() {
-        if (this.degreesDeclination < 0) {
-          this.km = this.distanceInLightYears * LY
-          this.rightAscension = (((this.secondsRightAscension / 60 + this.minutesRightAscension) / 60 +
-              this.hoursRightAscension) * 15) * Math.PI / 180
-          this.declination = ((this.secondsDeclination / 60 + this.minutesDeclination) / 60 +
-              this.degreesDeclination * (-1)) * Math.PI / 180
+        this.km = Number(this.distanceInLightYears) * LY
+        this.rightAscension = (((Number(this.secondsRightAscension) / 60 + Number(this.minutesRightAscension)) / 60 +
+            Number(this.hoursRightAscension)) * 15) * Math.PI / 180
+        if (Number(this.degreesDeclination) < 0) {
+          this.declination = ((Number(this.secondsDeclination) / 60 + Number(this.minutesDeclination)) / 60 +
+              Number(this.degreesDeclination) * (-1)) * Math.PI / 180
           this.x = this.km * Math.cos(this.rightAscension) * Math.cos(this.declination) * (-1)
           this.y = this.km * Math.sin(this.rightAscension) * Math.cos(this.declination) * (-1)
           this.z = this.km * Math.sin(this.declination) * (-1)
         } else {
-          this.km = this.distanceInLightYears * LY
-          this.rightAscension = (((this.secondsRightAscension / 60 + this.minutesRightAscension) / 60 +
-              this.hoursRightAscension) * 15) * Math.PI / 180
-          this.declination = ((this.secondsDeclination / 60 + this.minutesDeclination) / 60 +
-              this.degreesDeclination) * Math.PI / 180
+          this.declination = ((Number(this.secondsDeclination) / 60 + Number(this.minutesDeclination)) / 60 +
+              Number(this.degreesDeclination)) * Math.PI / 180
           this.x = this.km * Math.cos(this.rightAscension) * Math.cos(this.declination)
           this.y = this.km * Math.sin(this.rightAscension) * Math.cos(this.declination)
           this.z = this.km * Math.sin(this.declination)
