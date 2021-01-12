@@ -1,79 +1,74 @@
 <template>
-  <div>
-    <div class="container">
-      <h1 class="header-title">Translate coordinate system to XYZ</h1>
-      <form class="input-form">
-        <h3 class="form-title">Object</h3>
-        <div class="input-item">
-          <p class="input-subtitles">Enter object name:</p>
-          <input class="input-data" type="text" v-model="starName">
+  <div class="container">
+    <h1 class="header-title">Translate coordinate system to XYZ</h1>
+    <form class="input-form">
+      <h3 class="form-title">Object</h3>
+      <div class="input-item">
+        <p class="input-subtitles">Enter object name:</p>
+        <input class="input-data" type="text" v-model="starName">
+      </div>
+      <div class="input-item">
+        <p class="input-subtitles">Enter the distance to the object in light years:</p>
+        <input class="input-data" type="text" v-model="distanceInLightYears">
+      </div>
+      <h3 class="form-title">Right Ascension</h3>
+      <div class="input-item">
+        <p class="input-subtitles">Enter the number of hours:</p>
+        <input class="input-data" type="text" v-model="hoursRightAscension">
+      </div>
+      <div class="input-item">
+        <p class="input-subtitles">Enter the number of minutes:</p>
+        <input class="input-data" type="text" v-model="minutesRightAscension">
+      </div>
+      <div class="input-item">
+        <p class="input-subtitles">Enter the number of seconds:</p>
+        <input class="input-data" type="text" v-model="secondsRightAscension">
+      </div>
+      <h3 class="form-title">Declination</h3>
+      <div class="input-item">
+        <p class="input-subtitles">Enter the number of degrees:</p>
+        <input class="input-data" type="text" v-model="degreesDeclination">
+      </div>
+      <div class="input-item">
+        <p class="input-subtitles">Enter the number of minutes:</p>
+        <input class="input-data" type="text" v-model="minutesDeclination">
+      </div>
+      <div class="input-item">
+        <p class="input-subtitles">Enter the number of seconds:</p>
+        <input class="input-data" type="text" v-model="secondsDeclination">
+      </div>
+      <button class="btn btn-translate" @click="translateCoordinate">
+        <a href="#translate-results">Translate</a></button>
+      <div id="translate-results" v-if="isTranslate">
+        <h2 class="star-name-title">{{ starName}}</h2>
+        <div class="new-coordinates">
+          <p class="output-subtitles">Coordinate in kilometers:</p>
+          <ul>
+            <li>X: {{ x }}</li>
+            <li>Y: {{ y }}</li>
+            <li>Z: {{ z }}</li>
+          </ul>
         </div>
-        <div class="input-item">
-          <p class="input-subtitles">Enter the distance to the object in light years:</p>
-          <input class="input-data" type="text" v-model="distanceInLightYears">
+        <div class="new-coordinates">
+          <p class="output-subtitles">Coordinate in astronomical units:</p>
+          <ul>
+            <li>X: {{ auX }}</li>
+            <li>Y: {{ auY }}</li>
+            <li>Z: {{ auZ }}</li>
+          </ul>
         </div>
-        <h3 class="form-title">Right Ascension</h3>
-        <div class="input-item">
-          <p class="input-subtitles">Enter the number of hours:</p>
-          <input class="input-data" type="text" v-model="hoursRightAscension">
+        <div class="new-coordinates">
+          <p class="output-subtitles">Coordinate in light years:</p>
+          <ul>
+            <li>X: {{ lyX }}</li>
+            <li>Y: {{ lyY }}</li>
+            <li>Z: {{ lyZ }}</li>
+          </ul>
         </div>
-        <div class="input-item">
-          <p class="input-subtitles">Enter the number of minutes:</p>
-          <input class="input-data" type="text" v-model="minutesRightAscension">
-        </div>
-        <div class="input-item">
-          <p class="input-subtitles">Enter the number of seconds:</p>
-          <input class="input-data" type="text" v-model="secondsRightAscension">
-        </div>
-        <h3 class="form-title">Declination</h3>
-        <div class="input-item">
-          <p class="input-subtitles">Enter the number of degrees:</p>
-          <input class="input-data" type="text" v-model="degreesDeclination">
-        </div>
-        <div class="input-item">
-          <p class="input-subtitles">Enter the number of minutes:</p>
-          <input class="input-data" type="text" v-model="minutesDeclination">
-        </div>
-        <div class="input-item">
-          <p class="input-subtitles">Enter the number of seconds:</p>
-          <input class="input-data" type="text" v-model="secondsDeclination">
-        </div>
-
-        <button class="btn btn-translate" @click="translateCoordinate">
-          <a href="#translate-results">Translate</a></button>
-
-        <div id="translate-results" v-if="isTranslate">
-          <h2 class="star-name-title">{{ starName}}</h2>
-          <div class="new-coordinates">
-            <p class="output-subtitles">Coordinate in kilometers:</p>
-            <ul>
-              <li>X: {{ x }}</li>
-              <li>Y: {{ y }}</li>
-              <li>Z: {{ z }}</li>
-            </ul>
-          </div>
-          <div class="new-coordinates">
-            <p class="output-subtitles">Coordinate in astronomical units:</p>
-            <ul>
-              <li>X: {{ auX }}</li>
-              <li>Y: {{ auY }}</li>
-              <li>Z: {{ auZ }}</li>
-            </ul>
-          </div>
-          <div class="new-coordinates">
-            <p class="output-subtitles">Coordinate in light years:</p>
-            <ul>
-              <li>X: {{ lyX }}</li>
-              <li>Y: {{ lyY }}</li>
-              <li>Z: {{ lyZ }}</li>
-            </ul>
-          </div>
-          <button class="btn btn-clear" @click.prevent="clearForm">Clear</button>
-        </div>
-
-      </form>
-    </div> <!-- END OF CONTAINER -->
-  </div>
+        <button class="btn btn-clear" @click.prevent="clearForm">Clear</button>
+      </div>
+    </form>
+  </div> <!-- END OF CONTAINER -->
 </template>
 
 <script>
@@ -260,6 +255,7 @@
  ul {
    list-style: none;
    margin: 0;
+   text-align: center;
  }
 
  li {
