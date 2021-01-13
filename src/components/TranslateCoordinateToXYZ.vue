@@ -5,64 +5,64 @@
       <h3 class="form-title">Object</h3>
       <div class="input-item">
         <p class="input-subtitles">Enter object name:</p>
-        <input class="input-data" type="text" v-model="starName">
+        <input class="input-data" type="text" v-model="inputData.starName">
       </div>
       <div class="input-item">
         <p class="input-subtitles">Enter the distance to the object in light years:</p>
-        <input class="input-data" type="text" v-model="distanceInLightYears">
+        <input class="input-data" type="text" v-model="inputData.distanceInLightYears">
       </div>
       <h3 class="form-title">Right Ascension</h3>
       <div class="input-item">
         <p class="input-subtitles">Enter the number of hours:</p>
-        <input class="input-data" type="text" v-model="hoursRightAscension">
+        <input class="input-data" type="text" v-model="inputData.hoursRightAscension">
       </div>
       <div class="input-item">
         <p class="input-subtitles">Enter the number of minutes:</p>
-        <input class="input-data" type="text" v-model="minutesRightAscension">
+        <input class="input-data" type="text" v-model="inputData.minutesRightAscension">
       </div>
       <div class="input-item">
         <p class="input-subtitles">Enter the number of seconds:</p>
-        <input class="input-data" type="text" v-model="secondsRightAscension">
+        <input class="input-data" type="text" v-model="inputData.secondsRightAscension">
       </div>
       <h3 class="form-title">Declination</h3>
       <div class="input-item">
         <p class="input-subtitles">Enter the number of degrees:</p>
-        <input class="input-data" type="text" v-model="degreesDeclination">
+        <input class="input-data" type="text" v-model="inputData.degreesDeclination">
       </div>
       <div class="input-item">
         <p class="input-subtitles">Enter the number of minutes:</p>
-        <input class="input-data" type="text" v-model="minutesDeclination">
+        <input class="input-data" type="text" v-model="inputData.minutesDeclination">
       </div>
       <div class="input-item">
         <p class="input-subtitles">Enter the number of seconds:</p>
-        <input class="input-data" type="text" v-model="secondsDeclination">
+        <input class="input-data" type="text" v-model="inputData.secondsDeclination">
       </div>
       <button class="btn btn-translate" @click="translateCoordinate">
         <a href="#translate-results">Translate</a></button>
-      <div id="translate-results" v-if="isTranslate">
-        <h2 class="star-name-title">{{ starName}}</h2>
+      <div id="translate-results" v-if="advancedData.isTranslate">
+        <h2 class="star-name-title">{{ inputData.starName}}</h2>
         <div class="new-coordinates">
           <p class="output-subtitles">Coordinate in kilometers:</p>
           <ul>
-            <li>X: {{ x }}</li>
-            <li>Y: {{ y }}</li>
-            <li>Z: {{ z }}</li>
+            <li>X: {{ outputResults.x }}</li>
+            <li>Y: {{ outputResults.y }}</li>
+            <li>Z: {{ outputResults.z }}</li>
           </ul>
         </div>
         <div class="new-coordinates">
           <p class="output-subtitles">Coordinate in astronomical units:</p>
           <ul>
-            <li>X: {{ auX }}</li>
-            <li>Y: {{ auY }}</li>
-            <li>Z: {{ auZ }}</li>
+            <li>X: {{ outputResults.auX }}</li>
+            <li>Y: {{ outputResults.auY }}</li>
+            <li>Z: {{ outputResults.auZ }}</li>
           </ul>
         </div>
         <div class="new-coordinates">
           <p class="output-subtitles">Coordinate in light years:</p>
           <ul>
-            <li>X: {{ lyX }}</li>
-            <li>Y: {{ lyY }}</li>
-            <li>Z: {{ lyZ }}</li>
+            <li>X: {{ outputResults.lyX }}</li>
+            <li>Y: {{ outputResults.lyY }}</li>
+            <li>Z: {{ outputResults.lyZ }}</li>
           </ul>
         </div>
         <button class="btn btn-clear" @click.prevent="clearForm">Clear</button>
@@ -77,78 +77,80 @@
  export default {
   data(){
     return {
-      starName: '',
-      distanceInLightYears: '',
-      hoursRightAscension: '',
-      minutesRightAscension: '',
-      secondsRightAscension: '',
-      degreesDeclination: '',
-      minutesDeclination: '',
-      secondsDeclination: '',
-      km: 0,
-      rightAscension: 0,
-      declination: 0,
-      x: '',
-      y: '',
-      z: '',
-      auX: '',
-      auY: '',
-      auZ: '',
-      lyX: '',
-      lyY: '',
-      lyZ: '',
-      isTranslate: false
+      inputData: {
+        starName: '',
+        distanceInLightYears: '',
+        hoursRightAscension: '',
+        minutesRightAscension: '',
+        secondsRightAscension: '',
+        degreesDeclination: '',
+        minutesDeclination: '',
+        secondsDeclination: ''
+      },
+      outputResults: {
+        x: '',
+        y: '',
+        z: '',
+        auX: '',
+        auY: '',
+        auZ: '',
+        lyX: '',
+        lyY: '',
+        lyZ: ''
+      },
+      advancedData: {
+        km: 0,
+        rightAscension: 0,
+        declination: 0,
+        isTranslate: false
+      }
     }
   },
    methods: {
       translateCoordinate() {
-        this.km = Number(this.distanceInLightYears) * LY
-        this.rightAscension = (((Number(this.secondsRightAscension) / 60 + Number(this.minutesRightAscension)) / 60 +
-            Number(this.hoursRightAscension)) * 15) * Math.PI / 180
-        if (Number(this.degreesDeclination) < 0) {
-          this.declination = ((Number(this.secondsDeclination) / 60 + Number(this.minutesDeclination)) / 60 +
-              Number(this.degreesDeclination) * (-1)) * Math.PI / 180
-          this.x = this.km * Math.cos(this.rightAscension) * Math.cos(this.declination) * (-1)
-          this.y = this.km * Math.sin(this.rightAscension) * Math.cos(this.declination) * (-1)
-          this.z = this.km * Math.sin(this.declination) * (-1)
+        this.advancedData.km = Number(this.inputData.distanceInLightYears) * LY
+        this.advancedData.rightAscension = (((Number(this.inputData.secondsRightAscension) / 60 +
+            Number(this.inputData.minutesRightAscension)) / 60 + Number(this.inputData.hoursRightAscension)) *
+            15) * Math.PI / 180
+        if (Number(this.inputData.degreesDeclination) < 0) {
+          this.advancedData.declination = ((Number(this.inputData.secondsDeclination) / 60 +
+              Number(this.inputData.minutesDeclination)) / 60 + Number(this.inputData.degreesDeclination) *
+              (-1)) * Math.PI / 180
+          this.outputResults.x = this.advancedData.km * Math.cos(this.advancedData.rightAscension) *
+              Math.cos(this.advancedData.declination) * (-1)
+          this.outputResults.y = this.advancedData.km * Math.sin(this.advancedData.rightAscension) *
+              Math.cos(this.advancedData.declination) * (-1)
+          this.outputResults.z = this.advancedData.km * Math.sin(this.advancedData.declination) * (-1)
         } else {
-          this.declination = ((Number(this.secondsDeclination) / 60 + Number(this.minutesDeclination)) / 60 +
-              Number(this.degreesDeclination)) * Math.PI / 180
-          this.x = this.km * Math.cos(this.rightAscension) * Math.cos(this.declination)
-          this.y = this.km * Math.sin(this.rightAscension) * Math.cos(this.declination)
-          this.z = this.km * Math.sin(this.declination)
+          this.advancedData.declination = ((Number(this.inputData.secondsDeclination) / 60 +
+              Number(this.inputData.minutesDeclination)) / 60 + Number(this.inputData.degreesDeclination)) *
+              Math.PI / 180
+          this.outputResults.x = this.advancedData.km * Math.cos(this.advancedData.rightAscension) *
+              Math.cos(this.advancedData.declination)
+          this.outputResults.y = this.advancedData.km * Math.sin(this.advancedData.rightAscension) *
+              Math.cos(this.advancedData.declination)
+          this.outputResults.z = this.advancedData.km * Math.sin(this.advancedData.declination)
         }
-        this.auX = this.x / AU
-        this.auY = this.y / AU
-        this.auZ = this.z / AU
-        this.lyX = this.x / LY
-        this.lyY = this.y / LY
-        this.lyZ = this.z / LY
+        this.outputResults.auX = this.outputResults.x / AU
+        this.outputResults.auY = this.outputResults.y / AU
+        this.outputResults.auZ = this.outputResults.z / AU
+        this.outputResults.lyX = this.outputResults.x / LY
+        this.outputResults.lyY = this.outputResults.y / LY
+        this.outputResults.lyZ = this.outputResults.z / LY
 
-        this.isTranslate = true
+        this.advancedData.isTranslate = true
       },
      clearForm() {
-       this.starName = ''
-       this.distanceInLightYears = ''
-       this.hoursRightAscension = ''
-       this.minutesRightAscension = ''
-       this.secondsRightAscension = ''
-       this.degreesDeclination = ''
-       this.minutesDeclination = ''
-       this.secondsDeclination = ''
-       this.km = 0
-       this.rightAscension = 0
-       this.declination = 0
-       this.x = ''
-       this.y = ''
-       this.z = ''
-       this.auX = ''
-       this.auY = ''
-       this.auZ = ''
-       this.lyX = ''
-       this.lyY = ''
-       this.lyZ = ''
-       this.isTranslate = false
+        for(let key in this.inputData) {
+          this.inputData[key] = ''
+        }
+        for(let key in this.outputResults) {
+          this.outputResults[key] = ''
+        }
+       this.advancedData.km = 0
+       this.advancedData.rightAscension = 0
+       this.advancedData.declination = 0
+       this.advancedData.isTranslate = false
      }
    }
  }
@@ -255,7 +257,7 @@
  ul {
    list-style: none;
    margin: 0;
-   text-align: center;
+   text-align: left;
  }
 
  li {
