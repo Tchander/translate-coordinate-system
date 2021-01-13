@@ -131,7 +131,6 @@
               Math.cos(this.advancedData.declination)
           this.outputResults.z = this.advancedData.km * Math.sin(this.advancedData.declination)
         }
-
         this.outputResults.auX = this.outputResults.x / AU
         this.outputResults.auY = this.outputResults.y / AU
         this.outputResults.auZ = this.outputResults.z / AU
