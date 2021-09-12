@@ -1,15 +1,15 @@
 <template>
   <div id="app">
-    <TranslateCoordinateToXYZ />
+    <InputDataForm />
   </div>
 </template>
 
 <script>
-import TranslateCoordinateToXYZ from "@/components/TranslateCoordinateToXYZ";
+import InputDataForm from "@/components/InputDataForm"
 export default {
   name: 'App',
   components: {
-    TranslateCoordinateToXYZ
+    InputDataForm
   }
 }
 </script>
