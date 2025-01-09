@@ -1,17 +1,11 @@
 <template>
-  <div id="app">
+  <div id="root">
     <InputDataForm />
   </div>
 </template>
 
-<script>
-import InputDataForm from "@/components/InputDataForm"
-export default {
-  name: 'App',
-  components: {
-    InputDataForm
-  }
-}
+<script setup>
+import InputDataForm from '@/components/InputDataForm.vue';
 </script>
 
 <style>
@@ -35,7 +29,8 @@ body::before {
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
-#app {
+
+#root {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
